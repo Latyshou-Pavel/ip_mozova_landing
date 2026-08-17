@@ -479,6 +479,9 @@ img {
     background: var(--color-wood-bg);
     width: 54px;
     height: 54px;
+    min-width: 54px;
+    min-height: 54px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -489,6 +492,9 @@ img {
 .catalog-card__img-icon {
     width: 36px;
     height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    flex-shrink: 0;
     object-fit: contain;
     display: block;
 }
