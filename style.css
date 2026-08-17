@@ -729,7 +729,7 @@ img {
 }
 
 /* ==========================================================================
-   Плавающая мобильная кнопка звонка
+   Плавающая мобильная кнопка звонка (появляется при скролле до каталога)
    ========================================================================== */
 .mobile-call-bar {
     display: block;
@@ -742,11 +742,21 @@ img {
     padding: 0;
     z-index: 999;
     pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-call-bar.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 @media (min-width: 769px) {
     .mobile-call-bar {
-        display: none;
+        display: none !important;
     }
 }
 

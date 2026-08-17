@@ -458,11 +458,45 @@
     </footer>
 
     <!-- Быстрая плавающая кнопка для мобильных устройств -->
-    <div class="mobile-call-bar">
+    <div class="mobile-call-bar" id="mobileCallBar">
       <a href="tel:+375296415621" class="mobile-call-btn">
         <span class="call-icon">📞</span>
         <span>Позвонить +375 (29) 641-56-21</span>
       </a>
     </div>
+
+    <!-- Скрипт плавного показа кнопки при скролле до каталога -->
+    <script>
+      (function () {
+        const callBar = document.getElementById('mobileCallBar');
+        const catalog = document.getElementById('catalog');
+        if (!callBar || !catalog) return;
+
+        const observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
+                callBar.classList.add('is-visible');
+              } else {
+                callBar.classList.remove('is-visible');
+              }
+            });
+          },
+          { threshold: 0.05, rootMargin: '0px 0px -50px 0px' }
+        );
+
+        observer.observe(catalog);
+
+        // Дополнительная проверка на скролл для полной поддержки всех браузеров
+        window.addEventListener('scroll', function () {
+          const rect = catalog.getBoundingClientRect();
+          if (rect.top <= window.innerHeight * 0.8) {
+            callBar.classList.add('is-visible');
+          } else {
+            callBar.classList.remove('is-visible');
+          }
+        }, { passive: true });
+      })();
+    </script>
   </body>
 </html>
