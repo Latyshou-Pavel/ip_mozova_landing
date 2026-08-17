@@ -1,0 +1,860 @@
+/* ==========================================================================
+   ИП Мозова — Пиломатериалы & Всё для бани (Борисов)
+   Стили и адаптивная верстка
+   ========================================================================== */
+
+:root {
+    --color-primary: #1e3d2b;         /* Глубокий хвойный */
+    --color-primary-dark: #12281b;
+    --color-primary-light: #2d5a3e;
+    
+    --color-wood: #c88342;            /* Теплый янтарно-древесный */
+    --color-wood-dark: #a96828;
+    --color-wood-light: #e8a96d;
+    --color-wood-bg: #f7f2ea;
+    
+    --color-accent: #d9532f;          /* Акцентный для звонков и кнопок */
+    --color-accent-hover: #bd3f1e;
+    
+    --color-text-main: #2b2927;
+    --color-text-muted: #6b665f;
+    --color-text-light: #ffffff;
+    
+    --bg-page: #f9f7f2;
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --border-color: #e5ded2;
+    
+    --font-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 8px 24px rgba(28, 25, 23, 0.08);
+    --shadow-lg: 0 16px 36px rgba(28, 25, 23, 0.12);
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    
+    --transition: all 0.25s ease-in-out;
+}
+
+/* Сброс стилей и базовые настройки */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-base);
+    color: var(--color-text-main);
+    background-color: var(--bg-page);
+    /* Тематический текстурный фон дерева из открытого источника с мягким наложением */
+    background-image: 
+        linear-gradient(rgba(249, 247, 242, 0.94), rgba(249, 247, 242, 0.94)),
+        url('https://images.unsplash.com/photo-1546484396-fb3fc6f95f98?auto=format&fit=crop&w=1920&q=80');
+    background-repeat: repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    line-height: 1.6;
+    padding-bottom: 70px; /* Отступ под мобильную плавающую кнопку */
+}
+
+@media (min-width: 769px) {
+    body {
+        padding-bottom: 0;
+    }
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Кнопки */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    text-align: center;
+}
+
+.btn--primary {
+    background-color: var(--color-accent);
+    color: var(--color-text-light);
+    box-shadow: 0 4px 14px rgba(217, 83, 47, 0.35);
+}
+
+.btn--primary:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(217, 83, 47, 0.45);
+}
+
+.btn--secondary {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--color-text-light);
+    backdrop-filter: blur(8px);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn--secondary:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: var(--color-text-light);
+    transform: translateY(-2px);
+}
+
+.btn--outline {
+    width: 100%;
+    background-color: transparent;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn--outline:hover {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+}
+
+.btn--accent {
+    background-color: var(--color-wood-dark);
+    color: var(--color-text-light);
+    box-shadow: 0 4px 12px rgba(169, 104, 40, 0.3);
+}
+
+.btn--accent:hover {
+    background-color: var(--color-wood);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Шапка (Header)
+   ========================================================================== */
+.header {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
+
+.header__container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    gap: 15px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo__icon {
+    font-size: 2.2rem;
+    line-height: 1;
+}
+
+.logo__title {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.logo__subtitle {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-wood-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+}
+
+.header__location {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-wood-bg);
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.header__icon {
+    font-size: 1.3rem;
+}
+
+.header__address strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--color-text-main);
+}
+
+.header__address small {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+.header__contacts .phone-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.phone-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.phone-link:hover {
+    color: var(--color-accent);
+}
+
+.phone-icon {
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   Главный баннер (Hero)
+   ========================================================================== */
+.hero {
+    position: relative;
+    padding: 60px 0 70px;
+    color: var(--color-text-light);
+    background: 
+        linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 100%),
+        url('https://images.unsplash.com/photo-1757940661240-f2e8d2ff93bf?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    border-bottom: 4px solid var(--color-wood);
+}
+
+.hero__content {
+    max-width: 800px;
+}
+
+.badge {
+    display: inline-block;
+    background-color: var(--color-wood);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border-radius: 30px;
+    margin-bottom: 16px;
+}
+
+.hero__title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 18px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.hero__description {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #e2ede4;
+    margin-bottom: 28px;
+}
+
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.hero__features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #f1f8f3;
+}
+
+.feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background-color: var(--color-wood);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   Секция Каталога (2 Колонки)
+   ========================================================================== */
+.catalog-section {
+    padding: 60px 0;
+}
+
+.section-heading {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-wood);
+    border-radius: 2px;
+    margin: 8px auto 0;
+}
+
+.section-subtitle {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+}
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+@media (min-width: 860px) {
+    .catalog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.catalog-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 30px 26px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.catalog-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+}
+
+.catalog-card--timber::before {
+    background: linear-gradient(90deg, #c88342, #e8a96d);
+}
+
+.catalog-card--sauna::before {
+    background: linear-gradient(90deg, #1e3d2b, #437d58);
+}
+
+.catalog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-wood-light);
+}
+
+.catalog-card__header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.catalog-card__icon {
+    font-size: 2rem;
+    background: var(--color-wood-bg);
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.catalog-card__title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-primary);
+}
+
+.catalog-card__intro {
+    font-size: 0.98rem;
+    color: var(--color-text-muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.catalog-list {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 28px;
+}
+
+.catalog-list__item {
+    position: relative;
+    padding-left: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #e8e2d7;
+    font-size: 0.98rem;
+    line-height: 1.45;
+    color: var(--color-text-main);
+}
+
+.catalog-list__item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.item-bullet {
+    position: absolute;
+    left: 2px;
+    top: 7px;
+    width: 7px;
+    height: 7px;
+    background-color: var(--color-wood);
+    border-radius: 50%;
+}
+
+.catalog-card__footer {
+    margin-top: auto;
+}
+
+/* ==========================================================================
+   Секция: Лаки и пропитки (нижний блок)
+   ========================================================================== */
+.coatings-section {
+    margin-top: 10px;
+}
+
+.coatings-card {
+    background: linear-gradient(135deg, #fdfbf7 0%, #f4eee2 100%);
+    border: 2px solid var(--color-wood-light);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+@media (min-width: 900px) {
+    .coatings-card {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .coatings-card__content {
+        max-width: 720px;
+    }
+    
+    .coatings-card__action {
+        flex-shrink: 0;
+    }
+}
+
+.coatings-card__header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+}
+
+.coatings-card__icon {
+    font-size: 2rem;
+    background: #fff;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.coatings-card__title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-primary);
+}
+
+.coatings-card__subtitle {
+    font-size: 0.92rem;
+    color: var(--color-wood-dark);
+    font-weight: 600;
+}
+
+.coatings-card__description {
+    font-size: 0.96rem;
+    color: var(--color-text-main);
+    margin-bottom: 18px;
+    line-height: 1.55;
+}
+
+.brand-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.brand-tag {
+    background-color: var(--color-primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 6px 16px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+    box-shadow: 0 2px 6px rgba(30, 61, 43, 0.2);
+}
+
+/* ==========================================================================
+   Секция Контактов и Карта
+   ========================================================================== */
+.contacts-section {
+    padding: 60px 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-top: 1px solid var(--border-color);
+}
+
+.contacts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+@media (min-width: 860px) {
+    .contacts-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.contacts-info-card {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 30px 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.contact-row {
+    display: flex;
+    gap: 16px;
+}
+
+.contact-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    background: var(--color-wood-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-details h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 4px;
+}
+
+.contact-details p {
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+}
+
+.highlight-text {
+    color: var(--color-accent) !important;
+    font-weight: 700;
+    font-size: 1.05rem !important;
+    margin-top: 2px;
+}
+
+.phone-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.contact-phone {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-accent);
+    display: inline-block;
+}
+
+.contact-phone:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+}
+
+.text-muted {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.messenger-links {
+    margin-top: 8px;
+}
+
+.messenger-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.viber-btn {
+    background-color: #7360f2;
+}
+
+.viber-btn:hover {
+    background-color: #5b48d8;
+}
+
+.contacts-map-card {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    min-height: 360px;
+    height: 100%;
+}
+
+.contacts-map-card iframe {
+    border: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+}
+
+/* ==========================================================================
+   Подвал (Footer)
+   ========================================================================== */
+.footer {
+    background-color: var(--color-primary-dark);
+    color: #d1dfd6;
+    padding: 30px 0;
+    font-size: 0.9rem;
+}
+
+.footer__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+}
+
+@media (min-width: 768px) {
+    .footer__container {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+
+.footer__copy p {
+    font-weight: 600;
+    color: #fff;
+}
+
+.footer__copy small {
+    display: block;
+    color: #9cb5a4;
+    margin-top: 4px;
+}
+
+.footer__phones {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.footer__phones a:hover {
+    color: var(--color-wood-light);
+}
+
+/* ==========================================================================
+   Плавающая мобильная кнопка звонка
+   ========================================================================== */
+.mobile-call-bar {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid var(--border-color);
+    padding: 10px 16px;
+    z-index: 999;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 769px) {
+    .mobile-call-bar {
+        display: none;
+    }
+}
+
+.mobile-call-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background-color: var(--color-accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 13px 18px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 12px rgba(217, 83, 47, 0.4);
+}
+
+.mobile-call-btn:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================================================
+   Адаптивность (Медиазапросы)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .header {
+        position: static;
+        box-shadow: none;
+    }
+
+    .header__container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .header__location {
+        width: 100%;
+    }
+    
+    .header__contacts {
+        width: 100%;
+    }
+    
+    .header__contacts .phone-group {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    .hero__title {
+        font-size: 1.75rem;
+    }
+    
+    .hero__description {
+        font-size: 1rem;
+    }
+    
+    .hero__actions {
+        flex-direction: column;
+    }
+    
+    .hero__actions .btn {
+        width: 100%;
+    }
+    
+    .catalog-card {
+        padding: 22px 18px;
+    }
+    
+    .coatings-card {
+        padding: 22px 18px;
+    }
+}
